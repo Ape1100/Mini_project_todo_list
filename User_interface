@@ -1,0 +1,74 @@
+#User Interface (UI):
+#Create a command-line interface (CLI) for the To-Do List Application.
+#Display a welcoming message and a menu with the following options:
+
+#To_Do_List
+def display_menu():
+    """Display the main menu."""
+    print("Welcome to the To-Do List App!\n")
+    print("Menu:")
+    print("1. Add a task")
+    print("2. View tasks")
+    print("3. Mark a task as complete")
+    print("4. Delete a task")
+    print("5. Quit")
+
+def add_task(tasks):
+    """Add a task to the list."""
+    task = input("Enter the task: ")
+    tasks.append(task)
+    print("Task added successfully!")
+
+def view_tasks(tasks):
+    """View the list of tasks."""
+    if not tasks:
+        print("No tasks available.")
+    else:
+        print("Tasks:")
+        for i, task in enumerate(tasks, 1):
+            print(f"{i}. {task}")
+
+def mark_complete(tasks):
+    """Mark a task as complete."""
+    view_tasks(tasks)
+    try:
+        task_index = int(input("Enter the task number to mark as complete: ")) - 1
+        tasks.pop(task_index)
+        print("Task marked as complete!")
+    except (ValueError, IndexError):
+        print("Invalid task number.")
+
+def delete_task(tasks):
+    """Delete a task from the list."""
+    view_tasks(tasks)
+    try:
+        task_index = int(input("Enter the task number to delete: ")) - 1
+        deleted_task = tasks.pop(task_index)
+        print(f"Task '{deleted_task}' deleted successfully!")
+    except (ValueError, IndexError):
+        print("Invalid task number.")
+
+def main():
+    """Main function to run the To-Do List application."""
+    tasks = []
+    while True:
+        display_menu()
+        try:
+            choice = int(input("\nEnter your choice: "))
+            if choice == 1:
+                add_task(tasks)
+            elif choice == 2:
+                view_tasks(tasks)
+            elif choice == 3:
+                mark_complete(tasks)
+            elif choice == 4:
+                delete_task(tasks)
+            elif choice == 5:
+                print("Exiting...")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+main()
